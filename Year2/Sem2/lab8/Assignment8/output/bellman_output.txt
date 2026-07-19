@@ -1,0 +1,14 @@
+=== Bellman-Ford Algorithm ===
+Source: 0
+
+No negative-weight cycle detected.
+
+Shortest distances from source 0:
+  Node 0: 0
+  Node 1: 3
+  Node 2: 5
+  Node 3: 6
+  Node 4: 8
+
+Path from 0 to 4: 0 -> 2 -> 1 -> 3 -> 4
+Total distance: 8

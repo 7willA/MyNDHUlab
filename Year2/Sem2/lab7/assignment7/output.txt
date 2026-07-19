@@ -1,0 +1,51 @@
+==================================================
+  Lab of Algorithm Assignment 7 - Program Output
+==================================================
+
+--- Q3: Fractional Knapsack ---
+Items sorted by value/weight ratio (descending):
+Item  Weight  Value   Ratio       
+----------------------------------
+A     6       30      5.00        
+B     3.00    14.00   4.67        
+D     2.00    9.00    4.50        
+C     4.00    16.00   4.00        
+
+Selection process:
+------------------------------------------------------------
+Take item A: take 100.00% (all) -> value gained = 30.00, remaining capacity = 4.00
+Take item B: take 100.00% (all) -> value gained = 14.00, remaining capacity = 1.00
+Take item D: take 50.00% -> value gained = 4.50, remaining capacity = 0.00
+
+========================================
+Maximum total value = 48.50
+========================================
+
+--- Q7: 0/1 Knapsack ---
+Items: A(w=6,v=30) B(w=3,v=14) C(w=4,v=16) D(w=2,v=9) 
+Knapsack capacity W = 10
+
+=== 2D DP Solution ===
+Maximum total value = 46
+Selected items: A C 
+
+=== 1D Space-Optimized DP Solution ===
+Maximum total value = 46
+Selected items: A C 
+
+Time  complexity: O(nW)
+Space complexity: O(W)  [1D array only]
+
+--- Q8: Unbounded Knapsack ---
+Items: A(w=6,v=30) B(w=3,v=14) C(w=4,v=16) D(w=2,v=9) 
+Knapsack capacity W = 10
+
+=== Unbounded Knapsack (1D DP, O(W) space) ===
+Maximum total value = 48
+Selected items (with repetition allowed): A D D 
+Item counts:
+  A x1
+  D x2
+
+Time  complexity: O(nW)
+Space complexity: O(W)  [dp[] and track[] arrays only]

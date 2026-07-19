@@ -1,0 +1,6 @@
+=== Edmonds-Karp execution ===
+  Augmenting path #1 (flow +1): 0 -> 1 -> 4 -> 5
+
+Maximum Matching: 1
+Assignments:
+  A -> T1

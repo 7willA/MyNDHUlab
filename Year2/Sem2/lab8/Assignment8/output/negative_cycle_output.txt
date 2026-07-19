@@ -1,0 +1,6 @@
+=== Bellman-Ford Algorithm ===
+Source: 0
+
+[WARNING] Negative-weight cycle detected reachable from source 0!
+Shortest distances are not well-defined (can be -infinity).
+A node affected by the cycle: 2

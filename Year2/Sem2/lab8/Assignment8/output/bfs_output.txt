@@ -1,0 +1,16 @@
+=== BFS ===
+=== BFS Shortest Path ===
+Source: 0
+
+Shortest distances from source 0:
+  Node 0: 0 edge(s)
+  Node 1: 1 edge(s)
+  Node 2: 1 edge(s)
+  Node 3: 2 edge(s)
+  Node 4: 2 edge(s)
+  Node 5: 2 edge(s)
+  Node 6: 3 edge(s)
+  Node 7: 3 edge(s)
+
+Path from 0 to 7: 0 -> 2 -> 5 -> 7
+Total edges: 3

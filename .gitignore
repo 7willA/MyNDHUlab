@@ -1,0 +1,21 @@
+# Compiled / build artifacts
+*.exe
+*.out
+*.o
+*.obj
+*.dll
+a.out
+a.exe
+
+# Editor / IDE temp files
+tempCodeRunnerFile.*
+.vscode/
+*.code-workspace
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# LibreOffice / Office lock files
+.~lock.*#
+~$*

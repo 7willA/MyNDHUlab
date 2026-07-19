@@ -1,0 +1,38 @@
+=== A* Search ===
+=== A* Search Algorithm ===
+Grid size: 7 x 9
+Start: (0, 0)  Target: (6, 8)
+Heuristic: Manhattan distance  h(n) = |row_n - row_t| + |col_n - col_t|
+
+Path found:
+  (0, 0)
+  (0, 1)
+  (0, 2)
+  (0, 3)
+  (0, 4)
+  (0, 5)
+  (0, 6)
+  (0, 7)
+  (0, 8)
+  (1, 8)
+  (2, 8)
+  (3, 8)
+  (4, 8)
+  (5, 8)
+  (6, 8)
+Path length (cost): 14
+Nodes expanded by A*: 41
+
+Comparison with Dijkstra (h=0, no heuristic):
+  Dijkstra nodes expanded: 41
+  A* nodes expanded:       41
+  A* expanded 0 fewer nodes => more efficient with heuristic guidance.
+
+Grid visualization ('S'=start, 'T'=target, '*'=path, '#'=wall):
+  S * * * * * * * * 
+  . # # # . # # # * 
+  . . . # . . . # * 
+  . # . # # # . # * 
+  . # . . . . . # * 
+  . # # # # # # # * 
+  . . . . . . . . T 

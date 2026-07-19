@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algorithm Lab Week 1: Insertion Sort</title>
+    
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['$', '$']], displayMath: [['$$', '$$']] }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        :root { --primary: #2c3e50; --secondary: #3498db; --accent: #e67e22; --bg: #f4f7f9; }
+        body { font-family: 'Segoe UI', "Microsoft JhengHei", sans-serif; background-color: var(--bg); color: #333; line-height: 1.7; padding: 40px 20px; transition: background 0.3s; }
+        .worksheet { max-width: 900px; margin: 0 auto; background: white; padding: 40px; border-radius: 12px; box-shadow: 0 5px 25px rgba(0,0,0,0.08); position: relative; }
+        
+        /* 語言切換按鈕 */
+        .lang-btn { position: absolute; top: 30px; right: 40px; padding: 10px 20px; cursor: pointer; background: var(--secondary); color: white; border: none; border-radius: 25px; font-weight: 600; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: 0.3s; z-index: 100; }
+        .lang-btn:hover { background: #2980b9; transform: translateY(-2px); }
+
+        h1 { border-left: 8px solid var(--secondary); padding-left: 15px; color: var(--primary); font-size: 26px; margin-bottom: 30px; }
+        h2 { color: var(--secondary); border-bottom: 2px solid #eee; padding-bottom: 8px; margin-top: 40px; }
+        
+        /* 表格排版穩定設計 */
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; table-layout: fixed; }
+        th, td { border: 1px solid #dfe6e9; padding: 15px; text-align: left; vertical-align: top; }
+        th { background-color: #f8f9fa; color: var(--primary); }
+        
+        .desc-box { background: #f8f9fa; border: 1px solid #e9ecef; padding: 20px; border-radius: 8px; margin: 15px 0; }
+        .code-block { background: #2d3436; color: #dfe6e9; padding: 20px; border-radius: 8px; font-family: 'Consolas', monospace; overflow-x: auto; font-size: 14px; }
+        .variant-box { border: 2px dashed var(--accent); padding: 20px; border-radius: 8px; margin: 25px 0; background: #fffaf0; }
+
+        /* --- 核心語言顯示邏輯 --- */
+        /* 預設隱藏英文 */
+        .en { display: none; }
+        
+        /* 英文模式啟動時 */
+        body.en-mode .zh { display: none; }
+        body.en-mode .en { display: block; }
+
+        /* 針對行內元素 (如 span) 在英文模式下的處理，防止它們變成區塊元素導致斷行 */
+        body.en-mode span.en { display: inline !important; }
+        /* ----------------------- */
+    </style>
+</head>
+<body>
+
+<div class="worksheet">
+    <button class="lang-btn" id="toggleBtn" onclick="toggleLang()">Switch to English</button>
+
+    <header>
+        <h1 class="zh">第一週：鏈結串列插入排序之深度解析</h1>
+        <h1 class="en">Week 1: In-depth Analysis of Linked List Insertion Sort</h1>
+    </header>
+
+    <section>
+        <h2 class="zh">一、 演算法運作細節</h2>
+        <h2 class="en">1. Algorithmic Mechanics</h2>
+                <div class="desc-box">
+            <div class="zh">
+                <p>插入排序在鏈結串列上的實作關鍵在於<strong>「指標重新導向」</strong>。其核心流程如下：</p>
+                <ol>
+                    <li><strong>啞節點 (Dummy Node)：</strong> 創建一個輔助頭節點，將已排序的節點接在其後，可避免處理「插入位置在頭部」的邊界條件。</li>
+                    <li><strong>逐一掃描：</strong> 遍歷原始串列，對於每個節點 $P$，在已排序串列中從頭尋找第一個大於 $P.val$ 的位置。</li>
+                    <li><strong>指標操作：</strong> 將 $P$ 從原串列切斷，重新接合到新位置。</li>
+                </ol>
+            </div>
+            <div class="en">
+                <p>The key to Insertion Sort on a Linked List is <strong>"Pointer Redirection"</strong>. The core flow is:</p>
+                <ol>
+                    <li><strong>Dummy Node:</strong> Create a helper head node. Append sorted nodes after it to avoid boundary cases for head insertions.</li>
+                    <li><strong>Scan:</strong> Traverse the original list. For each node $P$, find the first position in the sorted part where the value is greater than $P.val$.</li>
+                    <li><strong>Re-link:</strong> Disconnect $P$ from the original list and insert it into the new position by updating pointers.</li>
+                </ol>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="zh">二、 複雜度分析與推導</h2>
+        <h2 class="en">2. Complexity Derivation</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 25%;">
+                        <span class="zh">分析指標</span><span class="en">Metric</span>
+                    </th>
+                    <th style="width: 20%;">
+                        <span class="zh">複雜度</span><span class="en">Complexity</span>
+                    </th>
+                    <th style="width: 55%;">
+                        <span class="zh">推導說明</span><span class="en">Derivation</span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <span class="zh">時間 (Worst Case)</span><span class="en">Time (Worst Case)</span>
+                    </td>
+                    <td>$O(n^2)$</td>
+                    <td>
+                        <span class="zh">輸入為逆序時，第 $i$ 個元素需比較 $i$ 次。總和：$\sum_{i=1}^{n} i = \frac{n(n+1)}{2}$。</span>
+                        <span class="en">In reverse input, the $i$-th node requires $i$ comparisons. Total: $\sum_{i=1}^{n} i = \frac{n(n+1)}{2}$.</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="zh">空間 (Extra Space)</span><span class="en">Space (Extra)</span>
+                    </td>
+                    <td>$O(1)$</td>
+                    <td>
+                        <span class="zh">僅需固定數量的指標變數（Dummy, Curr, Prev），不隨資料量增加。</span>
+                        <span class="en">Only a fixed number of pointer variables used, independent of $n$.</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section>
+        <h2 class="zh">三、 演算法變形思考</h2>
+        <h2 class="en">3. Algorithm Variant</h2>
+        <div class="variant-box">
+            <p class="zh"><strong>情境：</strong>假設使用<strong>雙向鏈結串列</strong>，並額外維護一個 <code>tail</code> 指向已排序部分的末尾。插入新節點 $X$ 時：
+                <br>1. 若 $X.val \ge tail.val$，直接接在後方 ($O(1)$)。
+                <br>2. 若 $X.val < tail.val$，則從 <code>tail</code> <strong>向前</strong>搜尋位置。
+            </p>
+            <p class="en"><strong>Scenario:</strong> Use a <strong>Doubly Linked List</strong> with a <code>tail</code> pointer. When inserting $X$:
+                <br>1. If $X.val \ge tail.val$, append it after <code>tail</code> ($O(1)$).
+                <br>2. If $X.val < tail.val$, search <strong>backward</strong> from <code>tail</code>.
+            </p>
+            <p style="font-weight: bold; color: var(--accent);">
+                <span class="zh">思考：當輸入資料為「完全遞減」時，此變形的比較次數 Big-O 為何？理由為何？</span>
+                <span class="en">Think: If the input is "Strictly Decreasing", what is the Big-O of comparisons? Why?</span>
+            </p>
+            <textarea style="width:100%; height:60px; border-radius: 5px; border: 1px solid #ccc; padding: 10px;"></textarea>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="zh">四、 程式應用實作</h2>
+        <h2 class="en">4. Programming Task</h2>
+        <p class="zh"><strong>挑戰題：</strong> 請實作單向鏈結串列的插入排序。除了正確排序外，請在程式註釋中說明：在什麼樣的實務場景下，你會優先選擇使用插入排序（$O(n^2)$）而非快速排序或合併排序（$O(n \log n)$）？</p>
+        <p class="en"><strong>Task:</strong> Implement insertion sort for a Singly Linked List. In your comments, explain a real-world scenario where you'd prefer this $O(n^2)$ algorithm over $O(n \log n)$ alternatives.</p>
+        <div class="code-block">
+            <pre>
+/**
+ * 請實作單向鏈結串列插入排序
+ * Implement Insertion Sort for Singly Linked List
+ */
+ListNode* insertionSortList(ListNode* head) {
+    // Write your code here
+}</pre>
+        </div>
+    </section>
+</div>
+
+<script>
+    function toggleLang() {
+        const body = document.body;
+        const btn = document.getElementById('toggleBtn');
+        
+        body.classList.toggle('en-mode');
+        
+        if (body.classList.contains('en-mode')) {
+            btn.innerText = "切換回中文";
+        } else {
+            btn.innerText = "Switch to English";
+        }
+        
+        if (window.MathJax && MathJax.typesetPromise) {
+            MathJax.typesetPromise();
+        }
+    }
+</script>
+
+</body>
+</html>
